@@ -1,0 +1,980 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <title>Rodrick Kapopo - Professional Portfolio</title>
+    <style>
+      /* 
+        Basic Professional Styling
+        For a larger project, it's recommended to move this to an external style.css file.
+      */
+      :root {
+        --primary-color: #000000; /* Black */
+        --secondary-color: #ff4800; /* Reddish-orange */
+        --background-color: #0a0a0a; /* Very dark grey, almost black */
+        --text-color: #e0e0e0; /* Light grey text */
+        --card-bg-color: #141414; /* Even darker card background */
+        --glow-color: rgb(107, 34, 11);
+      }
+
+      body {
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--background-color); 
+        color: var(--text-color);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+
+      .container {
+        width: 80%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      
+      #home .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 50px;
+      }
+
+      header {
+        background-color: transparent;
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: none;
+        backdrop-filter: blur(10px);
+        transition: background-color 0.4s ease, box-shadow 0.4s ease;
+      }
+
+      header.scrolled {
+        background-color: rgba(10, 10, 10, 0.8);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      }
+
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        margin-left: 20px;
+        transition: color 0.3s ease;
+      }
+
+      nav a:hover {
+        color: var(--secondary-color);
+      }
+
+      nav a.active-link {
+        color: var(--secondary-color);
+        text-shadow: 0 0 5px var(--glow-color);
+      }
+
+      nav a.active-link {
+        color: var(--secondary-color);
+        text-shadow: 0 0 5px var(--glow-color);
+      }
+
+      section {
+        padding: 100px 0;
+        border-bottom: 1px solid #333;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* For scroll animations */
+      section {
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      .section-hidden {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+
+      #home {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-bottom: none; /* No border for the first section */
+      }
+
+      .home-content {
+        flex: 1;
+        max-width: 55%;
+        padding-right: 40px;
+        position: relative; /* For positioning the DJ icon */
+        transform: translateY(-70px); /* Move text block slightly up */
+      }
+
+      .dj-icon {
+        position: absolute;
+        top: 50%; /* Vertically center */
+        right: 0; /* Align to the right edge of the text block */
+        transform: translateY(-10%); /* Adjust for perfect vertical centering */
+        font-size: 3.5rem;
+        color: var(--text-color);
+        text-shadow: 0 0 15px var(--glow-color);
+        opacity: 0.2;
+        z-index: 2;
+      }
+
+      .home-image-container {
+        flex-shrink: 0;
+        position: relative; /* For z-index to work */
+        z-index: 2; /* Make sure image is above floating icons and lines */
+      }
+
+      .profile-image {
+        width: 500px;
+        height: 500px;
+        transform: translateY(-60px); /* Elevate the image slightly */
+        object-fit: cover;
+        /* Use drop-shadow for a glow that follows the PNG outline */
+        filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 25px rgba(255, 7, 58, 0.4));
+      }
+
+      .home-content .greeting {
+        font-size: 4rem;
+        font-weight: bold;
+        color: var(--secondary-color);
+        text-shadow: 0 0 15px var(--glow-color);
+        margin: 0;
+      }
+
+      .home-content .name-intro {
+        font-size: 2.5rem;
+        margin: 10px 0;
+      }
+      .home-content .name-intro .highlight-name {
+        color: var(--secondary-color);
+        text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      #home h2 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+      }
+
+      #home p {
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        text-shadow: 0 0 8px var(--glow-color);
+      }
+
+      .cv-button {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: var(--secondary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        box-shadow: 0 0 10px var(--glow-color);
+      }
+
+      .cv-button:hover {
+        background-color: #ff6a00; /* A slightly brighter orange */
+        box-shadow: 0 0 20px var(--glow-color);
+        transform: translateY(-2px);
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2.8rem;
+        margin-bottom: 40px;
+        color: var(--primary-color);
+        color: var(--secondary-color);
+      }
+
+      /* Stylish glowing lines */
+      #home::before, #home::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        top: 0;
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(to bottom, var(--secondary-color), transparent);
+        box-shadow: 0 0 10px var(--glow-color);
+        opacity: 0.3;
+        z-index: 1;
+      }
+
+      #home::before {
+        transform: translateX(-150px) skewX(-20deg);
+      }
+
+      #home::after {
+        transform: translateX(150px) skewX(20deg);
+        width: 2px;
+        opacity: 0.2;
+        background: linear-gradient(to bottom, rgba(255, 7, 58, 0.5), transparent);
+      }
+
+      /* Diagonal Grid Lines */
+      .grid-lines-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .grid-line {
+        position: absolute;
+        right: -20%; /* Start from off-screen right */
+        top: 0;
+        width: 1px;
+        height: 150%; /* Make it long enough to cross the screen diagonally */
+        background: linear-gradient(to bottom, rgba(255, 7, 58, 0.2), transparent 50%);
+        box-shadow: 0 0 10px var(--glow-color);
+        transform-origin: top right;
+        transform: rotate(-45deg) skewX(20deg);
+      }
+
+      /* Position each line differently */
+      .grid-line:nth-child(1) { right: -10%; opacity: 0.5; }
+      .grid-line:nth-child(2) { right: 10%; }
+      .grid-line:nth-child(3) { right: 30%; opacity: 0.6; }
+      .grid-line:nth-child(4) { right: 50%; }
+      .grid-line:nth-child(5) { right: 70%; opacity: 0.7; }
+
+      @media (max-width: 992px) {
+        #home::before, #home::after, .grid-lines-container {
+          display: none; /* Hide all lines on smaller screens for clarity */
+        }
+      }
+      @media (max-width: 992px) {
+        #home::before, #home::after {
+          display: none; /* Hide lines on smaller screens for clarity */
+        }
+      }
+      @media (max-width: 992px) {
+        #home .container {
+          flex-direction: column;
+          text-align: center;
+        }
+        .home-content {
+          max-width: 100%;
+          padding-right: 0;
+          margin-bottom: 40px;
+        }
+        .profile-image {
+          width: 250px;
+          height: 250px;
+          transform: translateY(0); /* Reset elevation */
+        }
+        .home-content .greeting { font-size: 3rem; }
+        .home-content .name-intro { font-size: 2rem; }
+      }
+      @media (max-width: 992px) {
+        .dj-icon { display: none; } /* Hide icon on mobile to avoid clutter */
+      }
+
+      .project-grid, .skills-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      #skills .skills-category {
+        background: var(--secondary-color);
+        padding: 25px;
+        border-radius: 8px;
+        border: 1px solid var(--secondary-color);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        color: white; /* Set default text color to white for elements inside */
+      }
+
+      #skills .skills-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px var(--glow-color);
+        /* The border is already orange, maybe make it slightly lighter on hover or keep it */
+        border-color: #ff6a00; 
+      }
+
+      .project-card {
+        background-color: transparent;
+        min-height: 250px; /* Adjust as needed */
+        perspective: 1000px;
+        border: none;
+      }
+
+      .project-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+      }
+
+      /* This class will be toggled by JavaScript on click */
+      .project-card-inner.is-flipped {
+        transform: rotateY(180deg);
+      }
+
+      .project-card-front, .project-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden; /* Safari */
+        backface-visibility: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 25px;
+        background: var(--card-bg-color);
+        border-radius: 8px;
+        border: 1px solid #333;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+
+      .project-card-back {
+        transform: rotateY(180deg);
+      }
+
+      .skill-card, .service-card {
+        background: var(--card-bg-color);
+        padding: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        border: 1px solid #333;
+      }
+
+      .project-card:hover, .skill-card:hover, .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px var(--glow-color), 0 0 20px var(--glow-color) inset;
+        border-color: var(--secondary-color);
+      }
+
+      .project-card:hover {
+        box-shadow: 0 8px 25px var(--glow-color);
+        border-color: var(--secondary-color);
+      }
+
+      #skills h3 {
+        color: white;
+        margin-top: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+      }
+
+      #skills ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      #skills li { margin-bottom: 10px; display: flex; align-items: center; color: white; }
+      #skills li i { font-size: 1.2rem; margin-right: 10px; color: white; min-width: 20px; text-align: center;}
+      .project-card h3 {
+        color: var(--secondary-color);
+      }
+
+      .project-card a {
+        color: var(--secondary-color);
+        text-decoration: none;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      #contact form {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      #contact input, #contact textarea {
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #444;
+        background-color: #2a2a2a;
+        border-radius: 4px;
+      }
+
+      #contact button {
+        padding: 12px 20px;
+        background-color: var(--secondary-color);
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .social-links {
+        margin-bottom: 15px;
+      }
+
+      .social-links a {
+        color: var(--text-color);
+        margin: 0 15px;
+        font-size: 2rem;
+        transition: color 0.3s ease, transform 0.3s ease;
+        display: inline-block;
+      }
+
+      .social-links a:hover {
+        color: var(--secondary-color);
+        transform: translateY(-3px);
+        text-shadow: 0 0 10px var(--glow-color);
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px 0;
+        background-color: var(--primary-color);
+        color: white;
+        border-top: 1px solid #333;
+      }
+
+      /* Floating Reactive Elements */
+      .floating-shape {
+        position: absolute;
+        opacity: 0.15;
+        transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+        pointer-events: auto;
+        font-size: 4rem; /* Icon size */
+        color: var(--text-color);
+        text-shadow: 0 0 10px var(--glow-color);
+      }
+      .floating-shape { z-index: 1; }
+
+      .floating-shape:hover {
+        opacity: 1;
+        /* The transform is now handled by JavaScript for the push effect */
+        color: var(--secondary-color); /* Glow color on hover */
+        text-shadow: 0 0 20px var(--glow-color);
+      }
+
+      .shape1 {
+        top: 15%;
+        left: 25%;
+        animation: float 15s infinite ease-in-out;
+      }
+
+      .shape2 {
+        top: 50%;
+        right: 25%;
+        animation: float 12s infinite ease-in-out reverse;
+      }
+
+      .shape3 {
+        top: 75%;
+        right: 18%;
+        animation: float 18s infinite ease-in-out;
+      }
+
+      .shape4 {
+        top: 30%;
+        left: 15%;
+        animation: float 16s infinite ease-in-out reverse;
+        font-size: 3rem;
+      }
+
+      .shape5 {
+        top: 15%;
+        right: 32%;
+        animation: float 14s infinite ease-in-out;
+        font-size: 5rem;
+      }
+
+      .shape6 {
+        top: 70%;
+        right: 20%;
+        animation: float 20s infinite ease-in-out reverse;
+      }
+
+      .shape7 {
+        top: 5%;
+        left: 40%;
+        animation: float 13s infinite ease-in-out;
+        font-size: 3.5rem;
+      }
+
+      .shape8 {
+        top: 80%;
+        left: 18%;
+        animation: float 17s infinite ease-in-out reverse;
+        font-size: 5rem;
+      }
+
+      .shape9 {
+        top: 55%;
+        left: 15%;
+        animation: float 19s infinite ease-in-out;
+      }
+
+      .shape10 {
+        top: 80%;
+        right: 30%;
+        animation: float 15s infinite ease-in-out reverse;
+        font-size: 5rem;
+      }
+
+      .shape11 {
+        top: 35%;
+        left: 25%;
+        animation: float 22s infinite ease-in-out;
+        font-size: 4.5rem;
+      }
+
+      .shape12 {
+        top: 55%;
+        right: 15%;
+        animation: float 17s infinite ease-in-out reverse;
+        font-size: 3.5rem;
+      }
+
+      .shape13 {
+        top: 10%;
+        left: 55%;
+        animation: float 21s infinite ease-in-out;
+        font-size: 4rem;
+      }
+
+      .shape14 {
+        top: 25%;
+        left: 48%;
+        animation: float 16s infinite ease-in-out reverse;
+        font-size: 3rem;
+      }
+
+      .shape15 {
+        top: 65%;
+        left: 30%;
+        animation: float 14s infinite ease-in-out;
+        font-size: 3.5rem;
+      }
+
+      .shape16 {
+        top: 5%;
+        right: 5%;
+        animation: float 19s infinite ease-in-out reverse;
+      }
+
+      .shape17 {
+        top: 90%;
+        left: 50%;
+        animation: float 20s infinite ease-in-out;
+        font-size: 4rem;
+      }
+
+      .shape18 {
+        top: 40%;
+        right: 40%;
+        animation: float 15s infinite ease-in-out reverse;
+      }
+
+      .shape19 {
+        top: 85%;
+        left: 5%;
+        animation: float 16s infinite ease-in-out;
+        font-size: 3rem;
+      }
+
+      .shape20 {
+        top: 10%;
+        left: 5%;
+        animation: float 22s infinite ease-in-out reverse;
+      }
+
+      .shape21 {
+        top: 90%;
+        right: 10%;
+        animation: float 18s infinite ease-in-out;
+        font-size: 5rem;
+      }
+
+      .shape22 {
+        top: 60%;
+        left: 60%;
+        animation: float 13s infinite ease-in-out reverse;
+      }
+
+      .shape23 {
+        top: 30%;
+        right: 10%;
+        animation: float 17s infinite ease-in-out;
+        font-size: 4.5rem;
+      }
+
+      .shape24 {
+        top: 70%;
+        left: 40%;
+        animation: float 21s infinite ease-in-out reverse;
+        font-size: 3.5rem;
+      }
+
+      /* Devicon color overrides */
+      .devicon-python-plain,
+      .devicon-javascript-plain,
+      .devicon-laravel-plain,
+      .devicon-django-plain,
+      .devicon-mysql-plain,
+      .devicon-html5-plain,
+      .devicon-css3-plain,
+      .devicon-react-original,
+      .devicon-tailwindcss-plain,
+      .devicon-php-plain,
+      .devicon-nodejs-plain,
+      .devicon-r-plain,
+      .devicon-blender-original,
+      .devicon-photoshop-plain,
+      .devicon-github-original,
+      .devicon-linkedin-plain,
+      .devicon-twitter-original,
+      .devicon-flstudio-plain {
+        color: var(--text-color); /* Use text color for a uniform look */
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-25px) rotate(180deg);
+        }
+        100% {
+          transform: translateY(0px) rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Rodrick Kapopo</h1>
+        <nav>
+          <a href="#home">Home</a>
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#projects">Projects</a>
+          <a href="#services">Services</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section id="home">
+        <div class="grid-lines-container">
+          <div class="grid-line"></div>
+          <div class="grid-line"></div>
+          <div class="grid-line"></div>
+          <div class="grid-line"></div>
+          <div class="grid-line"></div>
+        </div>
+        <!-- Floating tappable elements -->
+        <i class="floating-shape shape1 devicon-python-plain"></i>
+        <i class="floating-shape shape2 devicon-javascript-plain"></i>
+        <i class="floating-shape shape3 devicon-react-original"></i>
+        <i class="floating-shape shape4 devicon-html5-plain"></i>
+        <i class="floating-shape shape5 devicon-css3-plain"></i>
+        <i class="floating-shape shape6 devicon-laravel-plain"></i>
+        <i class="floating-shape shape7 devicon-django-plain"></i>
+        <i class="floating-shape shape8 devicon-mysql-plain"></i>
+        <i class="floating-shape shape9 devicon-tailwindcss-plain"></i>
+        <i class="floating-shape shape10 devicon-php-plain"></i>
+        <i class="floating-shape shape11 devicon-nodejs-plain"></i>
+        <i class="floating-shape shape12 devicon-r-plain"></i>
+        <i class="floating-shape shape13 devicon-blender-original"></i>
+        <i class="floating-shape shape14 devicon-photoshop-plain"></i>
+        <i class="floating-shape shape15 devicon-python-plain"></i>
+        <i class="floating-shape shape16 devicon-javascript-plain"></i>
+        <i class="floating-shape shape17 devicon-react-original"></i>
+        <i class="floating-shape shape18 devicon-html5-plain"></i>
+        <i class="floating-shape shape19 devicon-css3-plain"></i>
+        <i class="floating-shape shape20 devicon-laravel-plain"></i>
+        <i class="floating-shape shape21 devicon-django-plain"></i>
+        <i class="floating-shape shape22 devicon-mysql-plain"></i>
+        <i class="floating-shape shape23 devicon-tailwindcss-plain"></i>
+        <i class="floating-shape shape24 devicon-php-plain"></i>
+
+        <div class="container">
+            <div class="home-content">
+              <i class="dj-icon devicon-flstudio-plain"></i>
+              <h1 class="greeting">Hello!</h1>
+              <h2 class="name-intro">I'm <span class="highlight-name">Rodrick Kapopo</span></h2>
+              <p>A developer and analyst who transforms complex challenges into elegant digital solutions. My passion lies at the intersection of code, data, and creativity, where I build seamless web experiences and uncover hidden stories within data. Dive in and see how I turn ideas into reality.</p>
+            </div>
+            <div class="home-image-container">
+              <!-- IMPORTANT: Replace this placeholder with the actual path to your image -->
+              <img src="src/assets/images/profile.png" alt="A professional headshot of Rodrick Kapopo" class="profile-image">
+            </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="container">
+          <h2 class="section-title">About Me</h2>
+          <p style="text-align: center; max-width: 800px; margin: 0 auto;">I am a multi-skilled creative and tech-driven professional specializing in music production, web development, data analysis, and intelligent automation. I produce high-quality beats, engineer audio in FL Studio and Reaper, and design visually appealing content using Photoshop and Blender. On the tech side, I build modern, responsive websites using HTML, CSS, JavaScript, React, Tailwind, and Node, with additional experience in backend tools like MySQL, Django, and PHP. I also work with Python and R for data preprocessing, analysis, and machine learning. Beyond development, I create automated digital systems—from forex chart-analysis bots to social media posting assistants—to help clients save time, grow their brand, and make smarter decisions. My mission is to combine creativity, technology, and strategy to deliver solutions that are modern, efficient, and impactful.</p>
+          <div style="text-align: center; margin-top: 30px;">
+            <!-- IMPORTANT: Replace '#' with the actual path to your CV file -->
+            <a href="#" download="Rodrick_Kapopo_CV.pdf" class="cv-button">Download CV</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="container">
+          <h2 class="section-title">My Toolkit</h2>
+          <div class="project-grid">
+            <div class="skills-category">
+              <h3>Programming &amp; Tech</h3>
+              <ul>
+                <li><i class="devicon-python-plain"></i>Python (Django, CustomTkinter, Kivy) for backend &amp; application development.</li>
+                <li><i class="devicon-javascript-plain"></i>JavaScript (React, Node.js) for dynamic, interactive frontends and servers.</li>
+                <li><i class="devicon-html5-plain"></i>HTML5, CSS3 (Tailwind CSS) for modern, responsive web design.</li>
+                <li><i class="devicon-php-plain"></i>PHP for robust server-side scripting and web solutions.</li>
+                <li><i class="devicon-mysql-plain"></i>MySQL for efficient and reliable database management.</li>
+                <li><i class="devicon-microsoftsqlserver-plain"></i>Advanced Microsoft Excel for complex data analysis and automation.</li>
+              </ul>
+            </div>
+            <div class="skills-category">
+              <h3>Data &amp; AI</h3>
+              <ul>
+                <li><i class="devicon-python-plain"></i>Python for Data Analysis &amp; Machine Learning (Pandas, Scikit-learn).</li>
+                <li><i class="devicon-r-plain"></i>R for sophisticated statistical analysis and compelling data visualization.</li>
+                <li><i class="devicon-devicon-plain"></i>Data Preprocessing: Cleaning, transforming, and preparing data for ML models.</li>
+                <li><i class="devicon-devicon-plain"></i>Business Expense Analysis: Uncovering financial insights to drive strategy.</li>
+              </ul>
+            </div>
+            <div class="skills-category">
+              <h3>Creative &amp; Financial</h3>
+              <ul>
+                <li><i class="devicon-photoshop-plain"></i>Adobe Photoshop for high-quality image editing and graphic design.</li>
+                <li><i class="devicon-blender-original"></i>Blender for 3D modeling, animation, and creating stunning visual assets.</li>
+                <li><i class="devicon-devicon-plain"></i>Music Production (FL Studio, Reaper) from beat making to final mastering.</li>
+                <li><i class="devicon-devicon-plain"></i>Trading (Forex &amp; Crypto): Navigating and analyzing financial markets.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="container">
+          <h2 class="section-title">My Projects</h2>
+          <div class="project-grid">
+            <div class="project-card">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <h3>Full-Stack E-commerce Platform</h3>
+                  <p>A complete e-commerce solution with a React frontend and a Django backend. Built for scalability and a seamless user experience.</p>
+                  <p style="font-size: 0.9rem; color: var(--secondary-color); margin-top: auto;">Click for details</p>
+                </div>
+                <div class="project-card-back">
+                  <h3>Tech Stack</h3>
+                  <p>React, Django REST Framework, Stripe API, PostgreSQL, JWT Authentication.</p>
+                  <div style="margin-top: auto;">
+                    <a href="#" target="_blank">Live Demo</a>
+                    <a href="#" target="_blank">Source Code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <h3>Customer Churn Prediction Model</h3>
+                  <p>A machine learning model developed with Python to identify customers at risk of churning, enabling proactive retention strategies.</p>
+                  <p style="font-size: 0.9rem; color: var(--secondary-color); margin-top: auto;">Click for details</p>
+                </div>
+                <div class="project-card-back">
+                  <h3>Tech Stack</h3>
+                  <p>Python, Pandas, Scikit-learn, Matplotlib, Jupyter Notebook.</p>
+                  <div style="margin-top: auto;">
+                    <a href="#" target="_blank">View on GitHub</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="project-card">
+              <div class="project-card-inner">
+                <div class="project-card-front">
+                  <h3>Interactive 3D Product Visualizer</h3>
+                  <p>A web app allowing users to view and customize a 3D product model in real-time, built with Three.js.</p>
+                  <p style="font-size: 0.9rem; color: var(--secondary-color); margin-top: auto;">Click for details</p>
+                </div>
+                <div class="project-card-back">
+                  <h3>Tech Stack</h3>
+                  <p>JavaScript (Three.js), HTML5, CSS3, Blender for asset creation.</p>
+                  <div style="margin-top: auto;">
+                    <a href="#" target="_blank">Live Demo</a>
+                    <a href="#" target="_blank">Source Code</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services">
+        <div class="container">
+          <h2 class="section-title">Services I Offer</h2>
+          <div class="project-grid">
+            <div class="service-card">
+              <h3>Full-Stack Web Development</h3>
+              <p>Building end-to-end web solutions, from responsive user interfaces with React and Tailwind to powerful backends with Django, Node.js, and PHP.</p>
+            </div>
+            <div class="service-card">
+              <h3>Data Analysis &amp; Machine Learning</h3>
+              <p>Transforming raw data into actionable insights. I offer data preprocessing, visualization, and the development of predictive models to solve business problems.</p>
+            </div>
+            <div class="service-card">
+              <h3>Creative &amp; Digital Asset Production</h3>
+              <p>From 3D models in Blender and graphics in Photoshop to complete audio tracks, I can produce the high-quality digital assets your project needs to stand out.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="container">
+          <h2 class="section-title">Get In Touch</h2>
+          <p style="text-align: center; margin-bottom: 30px;">Have a project in mind or just want to say hi? Feel free to reach out!</p>
+          <form>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="social-links">
+          <!-- IMPORTANT: Replace '#' with your actual social media profile URLs -->
+          <a href="#" target="_blank" title="GitHub"><i class="devicon-github-original"></i></a>
+          <a href="#" target="_blank" title="LinkedIn"><i class="devicon-linkedin-plain"></i></a>
+          <a href="#" target="_blank" title="Twitter"><i class="devicon-twitter-original"></i></a>
+        </div>
+        <p>&copy; 2024 Rodrick Kapopo. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // Header scroll effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+          // Add 'scrolled' class if user scrolls more than 50px, otherwise remove it
+          if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+          } else {
+            header.classList.remove('scrolled');
+          }
+        });
+
+        // Floating shapes mouse interaction
+        const floatingShapes = document.querySelectorAll('.floating-shape');
+        const homeSection = document.getElementById('home');
+
+        homeSection.addEventListener('mousemove', (e) => {
+          const rect = homeSection.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          floatingShapes.forEach(shape => {
+            const shapeRect = shape.getBoundingClientRect();
+            const shapeX = shapeRect.left - rect.left + shapeRect.width / 2;
+            const shapeY = shapeRect.top - rect.top + shapeRect.height / 2;
+
+            const distance = Math.sqrt(Math.pow(x - shapeX, 2) + Math.pow(y - shapeY, 2));
+            const pushRadius = 150; // How close the mouse needs to be to push the icon
+
+            if (distance < pushRadius) {
+              const pushForce = (pushRadius - distance) / pushRadius;
+              shape.style.transform = `translate(${(shapeX - x) * pushForce * 0.2}px, ${(shapeY - y) * pushForce * 0.2}px)`;
+            }
+          });
+        });
+
+        // Intersection Observer for section fade-in animation
+        const sections = document.querySelectorAll('section:not(#home)');
+
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            // When the element is in view, add the 'visible' class
+            if (entry.isIntersecting) {
+              entry.target.classList.remove('section-hidden');
+              observer.unobserve(entry.target); // Stop observing once it's visible
+            }
+          });
+        }, {
+          rootMargin: '0px',
+          threshold: 0.15 // Trigger when 15% of the section is visible
+        });
+
+        // Initially hide all sections except #home, then observe them
+        sections.forEach(section => {
+          section.classList.add('section-hidden');
+          sectionObserver.observe(section);
+        });
+
+        // Intersection Observer for nav link highlighting
+        const allSections = document.querySelectorAll('main section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        const navObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.getAttribute('id');
+              const activeLink = document.querySelector(`nav a[href="#${id}"]`);
+
+              navLinks.forEach(link => link.classList.remove('active-link'));
+              if (activeLink) {
+                activeLink.classList.add('active-link');
+              }
+            }
+          });
+        }, { rootMargin: '-50% 0px -50% 0px' }); // Highlight when section is in the middle of the viewport
+
+        allSections.forEach(section => {
+          navObserver.observe(section);
+        });
+      });
+
+      // Project card click-to-flip functionality
+      document.querySelectorAll('.project-card').forEach(card => {
+        card.addEventListener('click', (event) => {
+          // Prevent links on the back from triggering the flip
+          if (event.target.tagName !== 'A') {
+            card.querySelector('.project-card-inner').classList.toggle('is-flipped');
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
