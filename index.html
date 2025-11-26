@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Rodrick Kapopo - Professional Portfolio</title>
     <style>
       /* 
@@ -56,7 +57,7 @@
         z-index: 1000;
         box-shadow: none;
         backdrop-filter: blur(10px);
-        transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        transition: background-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease-in-out;
       }
 
       header.scrolled {
@@ -68,6 +69,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+      }
+
+      header nav {
+        display: flex;
       }
 
       header h1 {
@@ -91,9 +96,54 @@
         text-shadow: 0 0 5px var(--glow-color);
       }
 
-      nav a.active-link {
+      nav a i {
+        margin-right: 8px; /* Space between icon and text on desktop */
+        font-size: 1.1em; /* Slightly larger icon */
+      }
+
+      /* Mobile Navigation */
+      .menu-toggle {
+        display: none;
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        color: white;
+        cursor: pointer;
+        z-index: 1001;
+      }
+
+      .nav-overlay {
+        position: fixed;
+        top: 0;
+        right: 0; /* Pin to the right side */
+        width: 280px; /* Set a fixed width for the panel */
+        height: 100%;
+        background-color: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(10px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start; /* Align links to the left */
+        padding: 0 20px;
+        transform: translateX(100%); /* Start completely off-screen to the right */
+        transition: transform 0.4s ease-in-out;
+        z-index: 1001; /* Higher than header */
+      }
+
+      .nav-overlay.active {
+        transform: translateX(0); /* Slide into view */
+      }
+
+      .nav-overlay a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.5rem; /* Reduced font size */
+        margin: 15px 0;
+        transition: color 0.3s ease;
+      }
+
+      .nav-overlay a:hover {
         color: var(--secondary-color);
-        text-shadow: 0 0 5px var(--glow-color);
       }
 
       section {
@@ -153,6 +203,7 @@
         object-fit: cover;
         /* Use drop-shadow for a glow that follows the PNG outline */
         filter: drop-shadow(0 0 15px var(--glow-color)) drop-shadow(0 0 25px rgba(255, 7, 58, 0.4));
+        animation: float-image 10s infinite ease-in-out;
       }
 
       .home-content .greeting {
@@ -265,41 +316,67 @@
       .grid-line:nth-child(4) { right: 50%; }
       .grid-line:nth-child(5) { right: 70%; opacity: 0.7; }
 
-      @media (max-width: 992px) {
-        #home::before, #home::after, .grid-lines-container {
-          display: none; /* Hide all lines on smaller screens for clarity */
+      /* --- Media Queries for Responsiveness --- */
+      @media (max-width: 767px) {
+        .container {
+          width: 90%;
         }
-      }
-      @media (max-width: 992px) {
-        #home::before, #home::after {
-          display: none; /* Hide lines on smaller screens for clarity */
+
+        /* Hide decorative lines and icons on tablets and smaller */
+        #home::before, #home::after, .grid-lines-container, .dj-icon {
+          display: none;
         }
-      }
-      @media (max-width: 992px) {
+
         #home .container {
-          flex-direction: column;
+          flex-direction: column-reverse; /* Puts image on top on mobile */
           text-align: center;
+          padding-top: 60px; /* Add padding to push content below fixed header */
         }
+
         .home-content {
           max-width: 100%;
-          padding-right: 0;
           margin-bottom: 40px;
+          padding-right: 0;
+          transform: translateY(0); /* Reset vertical shift */
         }
+
         .profile-image {
           width: 250px;
           height: 250px;
           transform: translateY(0); /* Reset elevation */
+          animation: none; /* Disable floating animation on mobile */
         }
-        .home-content .greeting { font-size: 3rem; }
-        .home-content .name-intro { font-size: 2rem; }
-      }
-      @media (max-width: 992px) {
-        .dj-icon { display: none; } /* Hide icon on mobile to avoid clutter */
+
+        .home-content .greeting { font-size: 2.6rem; }
+        .home-content .name-intro { font-size: 1.7rem; }
+
+        /* Mobile navigation toggle */
+        header nav { display: none; }
+        .menu-toggle { display: block; }
+
+        /* Make header transparent on mobile */
+        header, header.scrolled {
+          background-color: transparent;
+          backdrop-filter: none;
+          box-shadow: none;
+        }
+
+        /* Class to hide header on scroll down */
+        header.header-hidden {
+          transform: translateY(-100%);
+        }
+
+        /* Ensure side panel is hidden on larger screens if JS adds 'active' class */
+        @media (min-width: 768px) {
+          .menu-toggle, .nav-overlay {
+            display: none !important;
+          }
+        }
       }
 
       .project-grid, .skills-list {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 30px;
       }
 
@@ -666,6 +743,31 @@
           transform: translateY(0px) rotate(360deg);
         }
       }
+
+      @keyframes float-image {
+        0% {
+          transform: translateY(-60px);
+        }
+        50% {
+          transform: translateY(-80px);
+        }
+        100% {
+          transform: translateY(-60px);
+        }
+      }
+    </style>
+    <style>
+      /* More specific mobile styles */
+      @media (max-width: 576px) {
+        html { font-size: 15px; } /* Reduce base font size for smaller text globally */
+        .home-content .greeting { font-size: 2.2rem; }
+        .home-content .name-intro { font-size: 1.6rem; }
+        #home p { font-size: 1rem; }
+
+        .section-title { font-size: 2.2rem; }
+        section { padding: 80px 0; }
+        #about p { font-size: 1rem; }
+      }
     </style>
   </head>
   <body>
@@ -680,6 +782,9 @@
           <a href="#services">Services</a>
           <a href="#contact">Contact</a>
         </nav>
+        <button class="menu-toggle" aria-label="Open menu">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
     </header>
 
@@ -880,21 +985,45 @@
           <a href="#" target="_blank" title="LinkedIn"><i class="devicon-linkedin-plain"></i></a>
           <a href="#" target="_blank" title="Twitter"><i class="devicon-twitter-original"></i></a>
         </div>
-        <p>&copy; 2024 Rodrick Kapopo. All Rights Reserved.</p>
+        <p>&copy; 2025 Rodrick Kapopo. All Rights Reserved.</p>
       </div>
     </footer>
+
+    <div class="nav-overlay">
+      <!-- Links will be cloned here by JavaScript -->
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </div>
 
     <script>
       document.addEventListener('DOMContentLoaded', () => {
         // Header scroll effect
+        let lastScrollY = window.scrollY;
         const header = document.querySelector('header');
+
         window.addEventListener('scroll', () => {
-          // Add 'scrolled' class if user scrolls more than 50px, otherwise remove it
-          if (window.scrollY > 50) {
+          const currentScrollY = window.scrollY;
+
+          // Add 'scrolled' class for desktop blur effect
+          if (currentScrollY > 50) {
             header.classList.add('scrolled');
           } else {
             header.classList.remove('scrolled');
           }
+
+          // Hide/show header on mobile
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down & past 100px
+            header.classList.add('header-hidden');
+          } else {
+            // Scrolling up
+            header.classList.remove('header-hidden');
+          }
+          lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
         });
 
         // Floating shapes mouse interaction
@@ -946,7 +1075,7 @@
         // Intersection Observer for nav link highlighting
         const allSections = document.querySelectorAll('main section');
         const navLinks = document.querySelectorAll('nav a');
-
+ 
         const navObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -964,6 +1093,47 @@
         allSections.forEach(section => {
           navObserver.observe(section);
         });
+
+        // Mobile Navigation Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navOverlay = document.querySelector('.nav-overlay');
+        const navOverlayLinks = document.querySelectorAll('.nav-overlay a');
+        const menuIcon = menuToggle.querySelector('i');
+        
+        menuToggle.addEventListener('click', () => {
+          navOverlay.classList.toggle('active');
+          // Toggle between hamburger and close icon
+          if (navOverlay.classList.contains('active')) {
+            menuIcon.classList.remove('fa-bars');
+            menuIcon.classList.add('fa-times');
+          } else {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+          }
+        });
+
+        // Close overlay when a link is clicked
+        navOverlayLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            navOverlay.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+          });
+        });
+
+        // Close overlay when clicking outside of it
+        document.addEventListener('click', (event) => {
+          // Check if the nav is open and the click is not the toggle button or inside the nav
+          const isClickInsideNav = navOverlay.contains(event.target);
+          const isClickOnToggle = menuToggle.contains(event.target);
+
+          if (navOverlay.classList.contains('active') && !isClickInsideNav && !isClickOnToggle) {
+            navOverlay.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+          }
+        });
+
       });
 
       // Project card click-to-flip functionality
